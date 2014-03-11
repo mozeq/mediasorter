@@ -26,8 +26,8 @@ public class MediaSorter {
 
 		for (File f: fileList) {
 			//System.out.println("Processing: " + f.getName());
-			Pattern pattern = Pattern.compile("(.+)\\.S([0-9]+)E([0-9]+)");
-			Matcher matcher = pattern.matcher(f.getName());
+			Pattern pattern = Pattern.compile("(.+)\\.s([0-9]+)e([0-9]+)");
+			Matcher matcher = pattern.matcher(f.getName().toLowerCase());
 
 			if (matcher.find() && matcher.groupCount() > 2) {
 				String showName = matcher.group(1).replace('.', ' ');
