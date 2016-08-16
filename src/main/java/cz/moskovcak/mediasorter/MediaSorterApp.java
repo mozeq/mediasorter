@@ -1,5 +1,7 @@
 package cz.moskovcak.mediasorter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -13,16 +15,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MediaSorterApp {
+    private static Logger LOG = LoggerFactory.getLogger(MediaSorter.class);
     public static void main(String[] args) {
         String parentDir = null;
         String torrentHash = null;
         String destDir = null;
 
-        System.out.print("Run with (" + args.length + ") args:");
+        LOG.info("Run with (" + args.length + ") args:");
         for(String s: args) {
-            System.out.print(" '"+s+"'");
+            LOG.info("'{}'", s);
         }
-        System.out.println();
 
         if (args.length < 2) {
             System.out.println("Usage\n\tMediaSorter PARENTDIR DESTDIR [TORRENTHASH]");
@@ -58,11 +60,11 @@ public class MediaSorterApp {
         for (Map.Entry<String, HashMap<String, ArrayList<File>>> showEntry: showTree.entrySet()) {
             //System.out.println(showEntry.getKey());
             for (Map.Entry<String, ArrayList<File>> season: showEntry.getValue().entrySet()) {
-                System.out.println("\t" + season.getKey());
+                LOG.info("\t '{}'", season.getKey());
                 String targetDir = destDir + File.separator + "TV Shows" + File.separator + showEntry.getKey()+ File.separator +season.getKey();
                 for (File f: season.getValue()) {
                     File destFile = new File(targetDir + "/" +f.getName());
-                    System.out.println("\t\t" + f.getName() +" => " + destFile.getAbsolutePath());
+                    LOG.info("\t\t '{}' => '{}'", f.getName(), destFile.getAbsolutePath());
                     //we don't care if this fails, the dirs might already exist, but it's easier than
                     // checking if it exists, if this fails the renameTo() will fail which we'll notice
                     destFile.getParentFile().mkdirs();
@@ -82,10 +84,11 @@ public class MediaSorterApp {
                                 tries--;
                                 if (tries > 0)
                                     continue;
+                                LOG.warn("Moving of '{}' failed, going to retry", f.toPath());
                             } catch (InterruptedException ie) {
                                 //Handle exception
                             }
-                            System.out.println("Moving '" + f.getName() + "' to '" + destFile.getAbsolutePath() + "' FAILED");
+                            LOG.warn("Moving '{}' to '{}' failed", f.getName(), destFile.getAbsolutePath());
                         }
                     }
                     fileCounter++;
@@ -94,7 +97,7 @@ public class MediaSorterApp {
             }
 
         }
-        System.out.println("Found: " + fileCounter + " moved: " + movedFiles);
+        LOG.info("Found: '{}' moved: '{}'", fileCounter, movedFiles);
 
     }
 }

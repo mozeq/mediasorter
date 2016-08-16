@@ -1,5 +1,8 @@
 package cz.moskovcak.mediasorter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.FileFilter;
 
@@ -23,11 +26,12 @@ class MediaFileFilter implements FileFilter
 
 
 public class FileList {
+    private static final Logger LOG = LoggerFactory.getLogger(FileList.class);
 
 	File[] listFiles(String dirname) {
 		File dir = new File(dirname);
 		File[] mediaFiles = dir.listFiles(new MediaFileFilter());
-
+        LOG.info("Found '{}' files", mediaFiles.length);
 		return mediaFiles;
 	}
 

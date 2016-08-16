@@ -1,5 +1,8 @@
 package cz.moskovcak.mediasorter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -11,6 +14,7 @@ import java.util.regex.Pattern;
 
 
 public class MediaSorter {
+	private static final Logger LOG = LoggerFactory.getLogger(MediaSorter.class);
 
 	// Show | Season | File
 	Map<String, HashMap<String, ArrayList<File>>> sortMedia(String path) {
@@ -25,9 +29,9 @@ public class MediaSorter {
 			return retval; //returns an empty array
 
 		for (File f: fileList) {
-			//System.out.println("Processing: " + f.getName());
-			Pattern pattern = Pattern.compile("(.+)\\.s([0-9]+)e([0-9]+)");
-			Matcher matcher = pattern.matcher(f.getName().toLowerCase());
+            String filename = f.getName().toLowerCase();
+            LOG.info("Processing '{}'", filename);
+			Matcher matcher = pattern.matcher(filename);
 
 			if (matcher.find() && matcher.groupCount() > 2) {
 				String showName = matcher.group(1).replace('.', ' ');
