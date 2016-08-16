@@ -7,6 +7,6 @@
 
     <bean id="uTorrentProxy" class="cz.moskovcak.mediasorter.uTorrentProxy">
         <!-- ip:port of your utorrent webui -->
-        <constructor-arg value="http://192.168.1.103:8888/" />
+        <constructor-arg value="http://192.168.192.47:8880/" />
     </bean>
 </beans>
