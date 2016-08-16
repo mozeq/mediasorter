@@ -9,7 +9,7 @@
     <url>http://maven.apache.org</url>
 
     <properties>
-        <spring.version>3.2.0.RELEASE</spring.version>
+        <spring.version>4.3.2.RELEASE</spring.version>
     </properties>
 
     <dependencies>
@@ -54,6 +54,12 @@
             <artifactId>jsoup</artifactId>
             <version>1.6.1</version>
         </dependency>
+
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -62,9 +68,10 @@
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
+                <version>3.5.1</version>
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -73,6 +80,7 @@
                         <include>**/*Tests.java</include>
                     </includes>
                 </configuration>
+                <version>2.18.1</version>
             </plugin>
 	     <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -84,6 +92,7 @@
                         </manifest>
                     </archive>
                 </configuration>
+                <version>3.0.2</version>
             </plugin>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
